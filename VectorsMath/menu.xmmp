@@ -1,0 +1,18 @@
+<Project>
+  <Grid ColumnSpacing="8" RowSpacing="8" >
+    <Grid.ColumnsProportions>
+      <Proportion/>
+      <Proportion/>
+    </Grid.ColumnsProportions>
+    <Grid.RowsProportions>
+      <Proportion/>
+      <Proportion/>
+    </Grid.RowsProportions>
+    
+    <ComboBox GridColumn="1" >
+      <ListItem Text="Red" Color="#FF0000FF" />
+      <ListItem Text="Green" Color="#008000FF" />
+      <ListItem Text="Blue" Color="#0000FFFF" />
+    </ComboBox>        
+  </Grid>
+</Project>
