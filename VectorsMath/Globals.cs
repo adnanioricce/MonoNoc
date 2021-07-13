@@ -20,10 +20,7 @@ namespace VectorsMath
                 return (float)rng.NextDouble();
             }
         }
-        public static Vector2 ScreenSizeToVector()
-        {
-            return new Vector2(Globals.ScreenSize.Width,Globals.ScreenSize.Height);
-        }
+        public static Vector2 ScreenSizeToVector => new Vector2(Globals.ScreenSize.Width,Globals.ScreenSize.Height);        
         public static Vector2 CenterScreen => new Vector2(ScreenSize.Width / 2,ScreenSize.Height / 2);
     }
 }

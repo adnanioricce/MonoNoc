@@ -20,7 +20,7 @@ namespace VectorsMath
         
         public void LoadContent()
         {
-            var screenVector = Globals.ScreenSizeToVector();
+            var screenVector = Globals.ScreenSizeToVector;
             mover = new Mover(_content.Load<Texture2D>("rectangle"),new Vector2(screenVector.X * 0.5f,screenVector.Y * 0.5f),1f);                        
         }
         public void Initialize()
@@ -47,8 +47,7 @@ namespace VectorsMath
         }
         public void Draw(GameTime gameTime)
         {
-            _spriteBatch.Begin();
-            // mover.Draw(_spriteBatch);            
+            _spriteBatch.Begin();            
             mover.Draw(_spriteBatch,mover.angle);
             _spriteBatch.End();
         }

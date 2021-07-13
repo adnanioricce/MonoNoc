@@ -62,6 +62,10 @@ namespace VectorsMath
         {
             acceleration += Vector2.Divide(force,mass);
         }
+        public void ApplyGravity()
+        {
+            acceleration += Vector2.Divide(new Vector2(0f,gravity),mass);
+        }
         public Vector2 Attract(Mover other){
             var force = Vector2.Subtract(this.position,other.position);
             var radius = force.Length();            
@@ -83,6 +87,7 @@ namespace VectorsMath
             angularVelocity += angularAcceleration;
             angle += angularVelocity;
             angularAcceleration *= 0;
+            angle = MathHelper.Clamp(angularAcceleration,0.001f,360f);
         }
         public void Draw(SpriteBatch spriteBatch)
         {

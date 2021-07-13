@@ -27,10 +27,7 @@ namespace VectorsMath
         }
 
         public void Update(GameTime gameTime)
-        {
-            var friction = new Vector2(_mover.velocity.X,_mover.velocity.Y);
-            friction = Vector2.Normalize(friction);
-            friction *= -1;
+        {            
             if(MousePressed()){
                 var dragForce = new Vector2(_mover.velocity.X,_mover.velocity.Y);
                 dragForce.Normalize();

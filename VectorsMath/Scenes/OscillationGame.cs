@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using Myra;
 using Myra.Graphics2D.UI;
 using VectorsMath;
+using VectorsMath.Games.Oscillation;
 
 namespace VectorsGame
 {
@@ -30,9 +31,12 @@ namespace VectorsGame
             _graphics.ApplyChanges();
             Games.Add(new RotationGame(_spriteBatch,Content));
             Games.Add(new PolarCoordsGame(_spriteBatch,Content));
-            Games.Add(new PointingGame(_spriteBatch,Content,Globals.ScreenSizeToVector()));
+            Games.Add(new PointingGame(_spriteBatch,Content,Globals.ScreenSizeToVector));
+            Games.Add(new SpiralGame(GraphicsDevice,_spriteBatch,Content));
+            Games.Add(new CannonGame(_spriteBatch,Content));
+            Games.Add(new SpaceshipGame(_spriteBatch,Content));
             Games.ForEach(game => game.LoadContent());
-            _gameSwitcher = new GameSwitcher(Games[2]);
+            _gameSwitcher = new GameSwitcher(Games[4]);
             MyraEnvironment.Game = this;
             _desktop = UIHelper.BuildUI(Games,_gameSwitcher);            
         }
