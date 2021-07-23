@@ -36,6 +36,7 @@ namespace VectorsGame
             Games.Add(new SpiralGame(GraphicsDevice,_spriteBatch,Content));
             Games.Add(new CannonGame(_spriteBatch,Content));
             Games.Add(new SpaceshipGame(_spriteBatch,Content));
+            Games.Add(new HarmonicMotionGame(_spriteBatch,Content));
             Games.ForEach(game => game.LoadContent());
             _gameSwitcher = new GameSwitcher(Games[4]);
             MyraEnvironment.Game = this;

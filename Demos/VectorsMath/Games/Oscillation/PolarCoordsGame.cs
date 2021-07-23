@@ -3,7 +3,7 @@ using Lib;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-
+using Lib.Extensions;
 namespace VectorsMath
 {
     public class PolarCoordsGame : ICustomGame

@@ -10,6 +10,7 @@ namespace Lib
         public Vector2 position;
         public Vector2 velocity;
         public Vector2 acceleration;
+        public Vector2 direction;
         public Rectangle rectangle;
         public float mass = 2f;
         public float gravity = 1f;
@@ -77,10 +78,19 @@ namespace Lib
         public void Update()
         {                                     
             velocity += acceleration;
-            position += velocity;            
+            position += velocity;
             acceleration = Vector2.Multiply(acceleration,0f);            
             rectangle.X = (int)position.X;
-            rectangle.Y = (int)position.Y;                        
+            rectangle.Y = (int)position.Y;
+            if(velocity.X > 0 && velocity.Y > 0){
+                velocity -= new Vector2(velocity.X * 0.01f,velocity.Y * 0.01f);
+                if(velocity.X < 0){
+                    velocity.X = 0;
+                }
+                if(velocity.Y < 0){
+                    velocity.Y = 0;
+                }
+            }
         }
         public void UpdateAngularVelocity()
         {

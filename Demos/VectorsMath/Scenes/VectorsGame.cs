@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Myra;
 using Myra.Graphics2D.UI;
+using VectorsMath.Games.Oscillation;
 
 namespace VectorsMath
 {
@@ -17,7 +18,7 @@ namespace VectorsMath
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;        
         private readonly List<ICustomGame> Games = new List<ICustomGame>();
-        private GameSwitcher _gameSwitcher;
+        private GameSwitcher _gameSwitcher;        
         private Desktop _desktop;
         public VectorsGame()
         {
@@ -36,8 +37,8 @@ namespace VectorsMath
             Games.Add(new FrictionGame(_spriteBatch,Content));
             Games.Add(new DragGame(_spriteBatch,Content));
             Games.Add(new LiquidGame(_spriteBatch,Content,GraphicsDevice));
-            Games.Add(new GravitationGame(_spriteBatch,Content));
-            Games.ForEach(game => game.LoadContent());                        
+            Games.Add(new GravitationGame(_spriteBatch,Content));            
+            Games.ForEach(game => game.LoadContent());            
             _desktop = new Desktop();
             _gameSwitcher = new GameSwitcher(Games[0]);            
             MyraEnvironment.Game = this;
@@ -56,13 +57,13 @@ namespace VectorsMath
             if(_gameSwitcher is null){
                 return;
             }                        
-            _gameSwitcher.Update(gameTime);
+            _gameSwitcher.Update(gameTime);            
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);            
+            GraphicsDevice.Clear(Color.CornflowerBlue);                        
             if(_gameSwitcher != null){
                 _gameSwitcher.Draw(gameTime);   
             }
