@@ -37,8 +37,10 @@ namespace VectorsGame
             Games.Add(new CannonGame(_spriteBatch,Content));
             Games.Add(new SpaceshipGame(_spriteBatch,Content));
             Games.Add(new HarmonicMotionGame(_spriteBatch,Content));
+            Games.Add(new OscillatorsGame(_spriteBatch,Content));
+            Games.Add(new WaveGame(_spriteBatch,Content));
             Games.ForEach(game => game.LoadContent());
-            _gameSwitcher = new GameSwitcher(Games[4]);
+            _gameSwitcher = new GameSwitcher(Games.LastOrDefault());
             MyraEnvironment.Game = this;
             _desktop = UIHelper.BuildUI(Games,_gameSwitcher);            
         }

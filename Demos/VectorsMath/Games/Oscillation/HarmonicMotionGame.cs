@@ -10,11 +10,9 @@ namespace VectorsMath.Games.Oscillation
     {    
         private readonly SpriteBatch _spriteBatch;
         private readonly ContentManager _content;
+        private const float amplitude = 798.9825f;
         private Mover _mover;
-        private float amplitude = 80f;
-        private float period = 120f;
-        private float frameCount = 1f;
-        private float xVelocity = 1f;
+        
         public HarmonicMotionGame(SpriteBatch spriteBatch,ContentManager content)
         {
             _spriteBatch = spriteBatch;
@@ -23,7 +21,10 @@ namespace VectorsMath.Games.Oscillation
 
         public void LoadContent()
         {
-            _mover = new Mover(_content.Load<Texture2D>("ball"),Globals.CenterScreen);
+            _mover = new Mover(_content.Load<Texture2D>("ball"),new Vector2(0,Globals.CenterScreen.Y));
+            _mover.angle = 0.0f;
+            _mover.angularAcceleration = 0.05f;
+            _mover.angularVelocity = 0.05f;
         }
         public void Initialize()
         {
@@ -31,12 +32,10 @@ namespace VectorsMath.Games.Oscillation
 
         public void Update(GameTime gameTime)
         {
-            frameCount += xVelocity;            
-            if(frameCount > period){
-                xVelocity *= -1f;                
-            }
-            float x = amplitude * MathF.Cos((2 * MathF.PI) * frameCount / period);
-            _mover.position.X += x / 2f;
+            float x = amplitude * MathF.Cos(_mover.angle);
+            Console.WriteLine($"X:{x}");
+            _mover.position.X = amplitude + x;            
+            _mover.angle += _mover.angularVelocity;
         }
         public void Draw(GameTime gameTime)
         {

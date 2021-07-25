@@ -1,4 +1,5 @@
 using System;
+using Lib.Math;
 using Microsoft.Xna.Framework;
 
 namespace VectorsMath
@@ -14,10 +15,15 @@ namespace VectorsMath
                 return rng.Next(min,max);
             }
         }
-        public static float GetRandomDouble()
+        public static float GetRandomFloat()
         {
             lock(_lock){
                 return (float)rng.NextDouble();
+            }
+        }
+        public static float GetRandomFloat(float min,float max){
+            lock (_lock) {
+                return rng.GetRandomNumber(min,max);
             }
         }
         public static Vector2 ScreenSizeToVector => new Vector2(Globals.ScreenSize.Width,Globals.ScreenSize.Height);        
