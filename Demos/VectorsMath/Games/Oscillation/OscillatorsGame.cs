@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Lib;
 using Lib.Physics;
@@ -39,12 +41,13 @@ namespace VectorsMath.Games.Oscillation
                     Globals.CenterScreen);
                 return oscillator;
             }).ToList();
+            
             oscillators.AddRange(initialOscillators);
             // oscillator = 
         }
         public void Update(GameTime gameTime)
         {
-            oscillators.ForEach(oscillator => {                
+            oscillators.ForEach(oscillator => {
                 oscillator.Update(gameTime);
             });
         }

@@ -20,7 +20,7 @@ namespace VectorsMath.Games.Oscillation
         float angularVelocity = 0.2f;
         int waveWidth = Globals.ScreenSize.Width / 24;
         const int millisecondsPerFrame = 64;
-        int millisecondsSinceLastUpdate = 0;        
+        int millisecondsSinceLastUpdate = 0;
         public WaveGame(SpriteBatch spriteBatch,ContentManager content)
         {
             _spriteBatch = spriteBatch;
@@ -36,7 +36,7 @@ namespace VectorsMath.Games.Oscillation
             var oscillators = Enumerable.Range(1,waveWidth).Select(x => {
                 var oscillator = new Oscillator(
                     texture:_content.Load<Texture2D>("ball"),
-                    angle:new Vector2(x * 24,0f),
+                    angle:new Vector2(x * 24,0),
                     velocity:Vector2.Zero,
                     amplitude:Vector2.Zero,
                     acceleration:Vector2.Zero,
@@ -55,10 +55,11 @@ namespace VectorsMath.Games.Oscillation
                 Console.WriteLine($"totalMilliseconds:{millisecondsSinceLastUpdate}"); 
                 millisecondsSinceLastUpdate = 0;
                 _oscillators.ForEach(o => {
+
                     float y = amplitude * MathF.Sin(angle) * (gameTime.ElapsedGameTime.Milliseconds / 16);
-                    o.position.Y = y + Globals.CenterScreen.Y;                              
+                    o.position.Y = y + Globals.CenterScreen.Y;
                     angle += angularVelocity;
-                });                
+                });
             }                                    
         }
         public void Draw(GameTime gameTime)

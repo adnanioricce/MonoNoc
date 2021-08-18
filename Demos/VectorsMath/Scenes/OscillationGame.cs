@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Myra;
 using Myra.Graphics2D.UI;
+using Playground.Games.Oscillation;
 using VectorsMath;
 using VectorsMath.Games.Oscillation;
 
@@ -39,8 +40,11 @@ namespace VectorsGame
             Games.Add(new HarmonicMotionGame(_spriteBatch,Content));
             Games.Add(new OscillatorsGame(_spriteBatch,Content));
             Games.Add(new WaveGame(_spriteBatch,Content));
+            Games.Add(new WaveWithClassGame(_spriteBatch,Content));
+            Games.Add(new PendulumGame(_spriteBatch,Content));
+            Games.Add(new PseudoDoublePendulumGame(_spriteBatch,Content));
             Games.ForEach(game => game.LoadContent());
-            _gameSwitcher = new GameSwitcher(Games.LastOrDefault());
+            _gameSwitcher = new GameSwitcher(Games.LastOrDefault());            
             MyraEnvironment.Game = this;
             _desktop = UIHelper.BuildUI(Games,_gameSwitcher);            
         }
