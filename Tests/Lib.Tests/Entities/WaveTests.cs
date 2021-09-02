@@ -17,13 +17,16 @@ namespace Lib.Entities.Tests
             Vector2 step = Vector2.One;
             bool onUpdatePointCalled = false;
             var testTime = new GameTime();
-            Func<Vector2,GameTime,float> updateOscillatorPosition = (angle,time) => amplitude * MathF.Sin(angle.Y);
-            Update<Oscillator> onUpdatePoint = (oscillator,time) => {                
-                oscillator.position.Y = updateOscillatorPosition(oscillator.angle,testTime);
+            float updateOscillatorPosition(Vector2 angle, GameTime time) => amplitude * MathF.Sin(angle.Y);
+            void onUpdatePoint(Oscillator oscillator, GameTime time)
+            {
+                oscillator.position.Y = updateOscillatorPosition(oscillator.angle, testTime);
                 onUpdatePointCalled = true;
-            };   
-            var wave = new Wave(waveWidth, amplitude, step);
-            wave.OnOscillate = onUpdatePoint;
+            }
+            var wave = new Wave(waveWidth, amplitude, step)
+            {
+                OnOscillate = onUpdatePoint
+            };
             var oscillator = new Oscillator(null,new Vector2(0.00f,0.05f),Vector2.Zero,Vector2.Zero,Vector2.Zero,Vector2.Zero);
             wave.Oscillators.Add(oscillator);
             var gameTime = new GameTime();
@@ -45,12 +48,14 @@ namespace Lib.Entities.Tests
             int amplitude = 100;
             Vector2 step = Vector2.One;
             bool onUpdateAngleCalled = false;
-            var wave = new Wave(waveWidth,amplitude,step);
-            wave.OnUpdateAngle = (angle,angularVelocity) =>
-            {                 
-                onUpdateAngleCalled = true;
-                var displacement = angle + angularVelocity;
-                return displacement;
+            var wave = new Wave(waveWidth, amplitude, step)
+            {
+                OnUpdateAngle = (angle, angularVelocity) =>
+                {
+                    onUpdateAngleCalled = true;
+                    var displacement = angle + angularVelocity;
+                    return displacement;
+                }
             };
             var oscillator = new Oscillator(null,Vector2.Zero,new Vector2(0.05f,0.0f),Vector2.Zero,Vector2.Zero,Vector2.Zero);
             wave.Oscillators.Add(oscillator);
@@ -64,11 +69,6 @@ namespace Lib.Entities.Tests
                 Assert.Equal(0.5f,oscillator.angle.X,2);
             });
             Assert.True(onUpdateAngleCalled);
-        }
-        [Fact(DisplayName = "some test")]
-        public void MyTestMethod()
-        {
-
-        }
+        }        
     }
 }

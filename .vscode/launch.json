@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/Demos/VectorsMath/bin/Debug/net5.0/VectorsMath.dll",
+            "program": "${workspaceFolder}/Demos/VectorsMath/bin/Debug/net5.0/Playground.dll",
             "args": [],
             "cwd": "${workspaceFolder}/Demos/VectorsMath",
             "console": "internalConsole",

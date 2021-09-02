@@ -1,50 +1,41 @@
-using System.Collections.Generic;
-using System.Linq;
-using Lib;
+﻿using Lib;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Myra;
 using Myra.Graphics2D.UI;
-using Playground.Games.Oscillation;
+using Playground.Games.Particles;
+using System.Collections.Generic;
+using System.Linq;
 using VectorsMath;
-using VectorsMath.Games.Oscillation;
 
-namespace VectorsGame
+namespace Playground.Scenes
 {
-    public class OscillationGame : Game
+    public class ParticlesGame : Game
     {
         readonly GraphicsDeviceManager _graphics;
         SpriteBatch _spriteBatch;        
         readonly List<ICustomGame> Games = new List<ICustomGame>();
         GameSwitcher _gameSwitcher;
         Desktop _desktop;
-        public OscillationGame()
+        public ParticlesGame()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;       
+            IsMouseVisible = true; 
         }
+                
         protected override void Initialize()
         {
             base.Initialize();
             _graphics.PreferredBackBufferHeight = Globals.ScreenSize.Height;
             _graphics.PreferredBackBufferWidth = Globals.ScreenSize.Width;
             _graphics.ApplyChanges();
-            Games.Add(new RotationGame(_spriteBatch,Content));
-            Games.Add(new PolarCoordsGame(_spriteBatch,Content));
-            Games.Add(new PointingGame(_spriteBatch,Content,Globals.ScreenSizeToVector));
-            Games.Add(new SpiralGame(GraphicsDevice,_spriteBatch,Content));
-            Games.Add(new CannonGame(_spriteBatch,Content));
-            Games.Add(new SpaceshipGame(_spriteBatch,Content));
-            Games.Add(new HarmonicMotionGame(_spriteBatch,Content));
-            Games.Add(new OscillatorsGame(_spriteBatch,Content));
-            Games.Add(new WaveGame(_spriteBatch,Content));
-            Games.Add(new WaveWithClassGame(_spriteBatch,Content));
-            Games.Add(new PendulumGame(_spriteBatch,Content));
-            Games.Add(new PseudoDoublePendulumGame(_spriteBatch,Content));
-            Games.Add(new SpringGame(_spriteBatch,Content));
-            Games.ForEach(game => game.LoadContent());
+            Games.Add(new HelloParticles(_spriteBatch,GraphicsDevice));
+            Games.ForEach(game => {
+                game.LoadContent();
+                game.Initialize();
+            });
             _gameSwitcher = new GameSwitcher(Games.LastOrDefault());            
             MyraEnvironment.Game = this;
             _desktop = UIHelper.BuildUI(Games,_gameSwitcher);            
