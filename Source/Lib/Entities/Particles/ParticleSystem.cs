@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Lib.Components;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -21,15 +22,34 @@ namespace Lib.Entities.Particles
             Origin = origin;
             ParticleFactory = particleFactory;
             Particles.AddRange(Enumerable.Repeat(ParticleFactory,particlesCount).Select(createParticle => createParticle(this)).ToList());
-        }        
+        }     
+        public void AddParticle()
+        {
+            Particles.Add(ParticleFactory(this));
+        }
+        public void ApplyReppeler(RepellerObject2D reppeler)
+        {
+            Particles.ForEach(particle =>
+            {
+                var location = particle.Location;                
+                var physics = particle.Physics;
+                //TODO:It seems that this API is incompatible with what I needed. Refactor it to better apply here
+                location.Acceleration += Vector2.Divide(reppeler.Repel(particle.Location.Position),physics.Mass);                
+            });
+        }
+        public void ApplyForce()
+        {
+            Particles.ForEach(p =>
+            {
+                var ph = p.Physics;                
+                ph.ApplyForce(p.Location);
+            });
+        }
         public void Update(GameTime gameTime)
         {
-            //var enumerator = Particles.GetEnumerator();
-            //while (enumerator.MoveNext())
-            
-            foreach(var particle in Particles)
+
+            foreach (var particle in Particles)
             {
-                //var particle = enumerator.Current;                
                 particle.Update();
             }
             var newParticles = Particles
@@ -43,6 +63,7 @@ namespace Lib.Entities.Particles
         }
         public void Draw(SpriteBatch spriteBatch,GameTime gameTime)
         {
+            
             foreach(var particle in Particles)
             {
                 particle.Draw(spriteBatch);

@@ -79,7 +79,7 @@ namespace Lib
         {                                     
             velocity += acceleration;
             position += velocity;
-            acceleration = Vector2.Multiply(acceleration,0f);            
+            acceleration = Vector2.Multiply(acceleration,0f);
             rectangle.X = (int)position.X;
             rectangle.Y = (int)position.Y;
             if(velocity.X > 0 && velocity.Y > 0){

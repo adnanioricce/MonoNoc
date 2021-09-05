@@ -31,7 +31,8 @@ namespace Playground.Scenes
             _graphics.PreferredBackBufferHeight = Globals.ScreenSize.Height;
             _graphics.PreferredBackBufferWidth = Globals.ScreenSize.Width;
             _graphics.ApplyChanges();
-            Games.Add(new HelloParticles(_spriteBatch,GraphicsDevice));
+            Games.Add(new HelloParticlesGame(_spriteBatch,GraphicsDevice));
+            Games.Add(new ParticlesWithForceGame(_spriteBatch,GraphicsDevice));
             Games.ForEach(game => {
                 game.LoadContent();
                 game.Initialize();
