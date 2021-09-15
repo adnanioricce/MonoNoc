@@ -6,6 +6,7 @@ namespace Lib.Factories
 {
     public class TextureFactory
     {
+        //public static Textu
         public static Texture2D CreateSolidTexture(GraphicsDevice graphicsDevice,Color color,int width,int height)
         {
             var colors = Enumerable.Repeat(color,width * height).ToArray();

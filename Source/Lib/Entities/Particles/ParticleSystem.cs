@@ -23,6 +23,10 @@ namespace Lib.Entities.Particles
             ParticleFactory = particleFactory;
             Particles.AddRange(Enumerable.Repeat(ParticleFactory,particlesCount).Select(createParticle => createParticle(this)).ToList());
         }     
+        public void AddParticle(Func<Particle> createParticle)
+        {
+            Particles.Add(createParticle());
+        }
         public void AddParticle()
         {
             Particles.Add(ParticleFactory(this));

@@ -32,15 +32,15 @@ namespace Lib.Components
         public Vector2 Repel(Vector2 reppeledPosition)
         {
             var direction = Position - reppeledPosition;
-            float scale = MathHelper.Clamp(direction.LengthSquared(),0f,100f);            
+            float scale = MathHelper.Clamp(direction.Length(),0f,100f);            
             direction.Normalize();
-            float force = -1 * Strength / scale;
+            float force = -1 * Strength / (scale * scale);
             direction *= force;
             return direction;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture,Position,Color.Black);
+            spriteBatch.Draw(texture,Position,Color.White);
         }
     }
 }

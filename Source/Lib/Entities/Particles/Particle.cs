@@ -1,4 +1,5 @@
 ﻿using Lib.Components;
+using Lib.Math.Noises;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -33,8 +34,10 @@ namespace Lib.Entities.Particles
             Lifespan -= 0.8f;
         }        
         public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(Texture,Location.Position,Color.Black * (Lifespan / 255));
+        {            
+            //var color = new Color(Location.Position.Y / 720f,Location.Position.X / 1280f,Perlin.Noise(Location.Position.X,Location.Position.Y));
+            var color = Color.White;
+            spriteBatch.Draw(Texture,Location.Position,null,color * (Lifespan / 255),0f,Vector2.Zero,0.05f,SpriteEffects.None,1f);
         }
     }
 }
