@@ -61,9 +61,9 @@ namespace VectorsMath.Games.Oscillation
                 radiusVelocity *= -1;
             }
             radius += radiusVelocity;
-
-            _ball.position.X = Globals.CenterScreen.X + MathF.Cos(MathHelper.ToRadians(angle)) * radius;
-            _ball.position.Y = Globals.CenterScreen.Y + MathF.Sin(MathHelper.ToRadians(angle)) * radius;            
+            var transform = _ball.transform;
+            transform.Position.X = Globals.CenterScreen.X + MathF.Cos(MathHelper.ToRadians(angle)) * radius;
+            transform.Position.Y = Globals.CenterScreen.Y + MathF.Sin(MathHelper.ToRadians(angle)) * radius;            
         }
         public void Draw(GameTime gameTime)
         {            
@@ -72,7 +72,8 @@ namespace VectorsMath.Games.Oscillation
             Console.WriteLine(colorVec);            
             _graphicsDevice.SetRenderTarget(_trailTarget);
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_pointTexture,_ball.position + (_ball.rectangle.Size.ToVector2() / 2f),null,colorVec,1f,Vector2.Zero,4f,SpriteEffects.None,1f);
+            var transform = _ball.transform;
+            _spriteBatch.Draw(_pointTexture,transform.Position + (_ball.rectangle.Size.ToVector2() / 2f),null,colorVec,1f,Vector2.Zero,4f,SpriteEffects.None,1f);
             _spriteBatch.End();
             _graphicsDevice.SetRenderTarget(null);
             _graphicsDevice.Clear(Color.CornflowerBlue);            

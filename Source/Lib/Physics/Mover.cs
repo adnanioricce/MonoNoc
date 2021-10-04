@@ -31,11 +31,7 @@ namespace Lib
         public void Edges(Vector2 screenSize)
         {
             transform.Edges((int)screenSize.X,(int)screenSize.Y,rectangle);
-        }
-        public void ApplyForce(Vector2 force)
-        {
-            this.transform.ApplyForce(() => Vector2.Divide(force,mass));
-        }
+        }        
         public void ApplyGravity()
         {
             this.transform.Acceleration += Vector2.Divide(new Vector2(0f,gravity),mass);
@@ -53,27 +49,28 @@ namespace Lib
         {          
             transform.Accelerate();
             transform.Move();
-            transform.Acceleration = Vector2.Multiply(transform.Acceleration,0f);            
+            transform.Acceleration = Vector2.Multiply(transform.Acceleration,0f); 
             var position = transform.Position;
             rectangle.X = (int)position.X;
-            rectangle.Y = (int)position.Y;
-            var velocity = transform.Velocity;
-            if(velocity.X > 0 && velocity.Y > 0){
-                velocity -= new Vector2(velocity.X * 0.01f,velocity.Y * 0.01f);
-                if(velocity.X < 0){
-                    velocity.X = 0;
-                }
-                if(velocity.Y < 0){
-                    velocity.Y = 0;
-                }
-            }
+            rectangle.Y = (int)position.Y;            
+            //var velocity = transform.Velocity;
+            //if(velocity.X > 0 && velocity.Y > 0){
+            //    velocity -= new Vector2(velocity.X * 0.01f,velocity.Y * 0.01f);
+            //    if(velocity.X < 0){
+            //        velocity.X = 0;
+            //    }
+            //    if(velocity.Y < 0){
+            //        velocity.Y = 0;
+            //    }
+            //}
+            //transform.Velocity = velocity;
         }
         public void UpdateAngularVelocity()
         {
             angularVelocity += angularAcceleration;
-            angle += angularVelocity;
+            angle += angularVelocity;            
             angularAcceleration *= 0;
-            angle = MathHelper.Clamp(angularAcceleration,0.001f,360f);
+            angle = MathHelper.Clamp(angle,1f,360f);
         }
         public void Draw(SpriteBatch spriteBatch)
         {

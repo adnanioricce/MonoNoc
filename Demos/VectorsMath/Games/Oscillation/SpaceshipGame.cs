@@ -23,8 +23,9 @@ namespace VectorsMath.Games.Oscillation
         }        
 
         public void Initialize()
-        {            
-            spaceship.position = Globals.CenterScreen;
+        {   
+            var transform = spaceship.transform;
+            transform.Position = Globals.CenterScreen;
         }
 
         public void LoadContent()
@@ -49,7 +50,8 @@ namespace VectorsMath.Games.Oscillation
             if(currentState.IsKeyDown(Keys.Space)){                
                 spaceship.direction = new Vector2(MathF.Cos(angle),MathF.Sin(angle));                
             }
-            spaceship.position += spaceship.direction * 0.1f * gameTime.ElapsedGameTime.Milliseconds;
+            var transform = spaceship.transform;
+            transform.Position += spaceship.direction * 0.1f * gameTime.ElapsedGameTime.Milliseconds;
             spaceship.Update();
             spaceship.Edges(Globals.ScreenSizeToVector);            
         }

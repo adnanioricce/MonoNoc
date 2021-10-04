@@ -39,9 +39,11 @@ namespace VectorsMath
         {
             var mouseState = Mouse.GetState();
             for(int i = 0;i < _balls.Length;++i){
-                _balls[i].ApplyForce(new Vector2(0.0f,0.5f));
+                var transform = _balls[i].transform;
+
+                transform.ApplyForce(() => new Vector2(0.0f,0.5f));
                 if(mouseState.LeftButton == ButtonState.Pressed){
-                    _balls[i].ApplyForce(new Vector2(0.5f,0.0f));
+                    transform.ApplyForce(() => new Vector2(0.5f,0.0f));
                 }
                 _balls[i].Update();
                 _balls[i].Edges(Globals.ScreenSizeToVector);

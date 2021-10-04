@@ -27,7 +27,9 @@ namespace Playground.Entities
             float x = RestLength - currentLength;
             force.Normalize();
             force *= -1 * K * x;
-            mover.ApplyForce(force);
+            var transform = mover.transform;
+            transform.ApplyForce(() => force);
+            mover.transform = transform;
         }
         public virtual void Draw(SpriteBatch spriteBatch)
         {

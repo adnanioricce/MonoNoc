@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Lib;
+using Lib.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -29,11 +30,10 @@ namespace VectorsMath
             var ballTexture = _content.Load<Texture2D>("ball");
             _centerBall = new Attractor(ballTexture,
             new Vector2(Globals.ScreenSize.Width / 2, Globals.ScreenSize.Height / 2),
-            2f)
-            {
-                velocity = new Vector2(1f, 0.0f),
-                acceleration = new Vector2(0.001f, 0.0f)
-            };
+            2f);
+            var transform = _centerBall.transform;
+            transform.Velocity = new Vector2(1f, 0.0f);
+            transform.Acceleration = new Vector2(0.001f, 0.0f);
             _orbitingBalls.AddRange(Enumerable.Range(0,5).Select(i => {
                 var ball = new Mover(ballTexture,new Vector2(Globals.ScreenSize.Width / (i + 1),
                 Globals.ScreenSize.Height / 8),
@@ -45,8 +45,8 @@ namespace VectorsMath
         public void Update(GameTime gameTime)
         {
             var mouseState = Mouse.GetState();            
-            if(isClicked){
-                _centerBall.Drag(mouseState.Position.ToVector2());
+            if(isClicked){                
+                _centerBall.transform = _centerBall.transform.Drag(mouseState.Position.ToVector2());
             }            
             if(mouseState.LeftButton == ButtonState.Pressed){
                 Console.WriteLine($"X:{mouseState.Position.X},Y:{mouseState.Position.Y}");
@@ -60,9 +60,10 @@ namespace VectorsMath
             foreach (var orbitingBall in _orbitingBalls)
             {
                 var force = _centerBall.Attract(orbitingBall);
-                orbitingBall.ApplyForce(force);
+                var transform = orbitingBall.transform;
+                transform.ApplyForce(() => force);
                 orbitingBall.Update();
-                orbitingBall.Edges(Globals.ScreenSize.Width,Globals.ScreenSize.Height);
+                transform.Edges(Globals.ScreenSize.Width,Globals.ScreenSize.Height,orbitingBall.rectangle);
             }
             
             // _centerBall.Update();            

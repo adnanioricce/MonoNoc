@@ -27,14 +27,15 @@ namespace VectorsMath
         public void LoadContent()
         {
             _ball = new Mover(_content.Load<Texture2D>("ball"),Globals.CenterScreen);
-            _ball.position.X = Globals.CenterScreen.X / 2;
-            _ball.position.Y = Globals.ScreenSize.Height - 32f;
+            var transform = _ball.transform;
+            transform.Position.X = Globals.CenterScreen.X / 2;
+            transform.Position.Y = Globals.ScreenSize.Height - 32f;
         }
         public void Update(GameTime gameTime)
         {
             var currentState = Keyboard.GetState();
             if(inputHelper.IsNewKeyPress(currentState,lastState,Keys.Space)){
-                _ball.ApplyForce(new Vector2(20,-25));
+                _ball.transform.ApplyForce(() => new Vector2(20,-25));
             }
             lastState = currentState;
             _ball.ApplyGravity();

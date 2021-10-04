@@ -33,13 +33,14 @@ namespace VectorsMath
         public void Update(GameTime gameTime)
         {
             var x = r * MathF.Cos(a);
-            var y = r * MathF.Sin(a);            
-            mover.position.X = x;
-            mover.position.Y = y;
-            
+            var y = r * MathF.Sin(a);      
+            var transform = mover.transform;
+            transform.Position.X = x;
+            transform.Position.Y = y;
+            mover.transform = transform;
             mover.Update();            
             mover.UpdateAngularVelocity();
-            mover.Edges(Globals.ScreenSize.Width,Globals.ScreenSize.Height);
+            mover.Edges(Globals.ScreenSizeToVector);
             a = mover.angle;
             
 
@@ -49,7 +50,7 @@ namespace VectorsMath
             Matrix transform = Matrix.CreateScale(1f) * Matrix.CreateRotationZ(a * MathHelper.Pi) * Matrix.CreateTranslation(new Vector3(Globals.ScreenSize.Width / 2,Globals.ScreenSize.Height / 2,0f));                        
             _spriteBatch.Begin(transformMatrix:transform);
             var moverCenter = mover.rectangle.Size.ToVector2() / 2f;            
-            var posOffseted = mover.position + moverCenter;
+            var posOffseted = mover.transform.Position + moverCenter;
             _spriteBatch.DrawLine(posOffseted,origin,Color.Black);
             mover.Draw(_spriteBatch);
             _spriteBatch.End();

@@ -36,8 +36,9 @@ namespace Playground.Games.Oscillation
             
             _mover = new Mover(ballTexture,ScreenSize / 2f);
             _spring = new Spring(ballTexture,new Vector2(ScreenSize.X / 2f,0f),125);
-            _mover.acceleration = new Vector2(2f,1f);
-            _mover.velocity = new Vector2(0.002f,0.002f);
+            var transform = _mover.transform;
+            transform.Acceleration = new Vector2(2f,1f);
+            transform.Velocity = new Vector2(0.002f,0.002f);
             _mover.gravity = 1f;
         }
         public void Update(GameTime gameTime)
@@ -47,12 +48,13 @@ namespace Playground.Games.Oscillation
                 // _mover.ApplyGravity();
                 _spring.Connect(_mover);            
                 Console.WriteLine("Milliseconds {0}",((float)gameTime.ElapsedGameTime.Milliseconds));
-                _mover.velocity += _mover.acceleration;
-                _mover.position += _mover.velocity;
+                var transform = _mover.transform;
+                transform.Accelerate();
+                transform.Move();                
                 _mover.Edges(ScreenSize);
                 // _mover.velocity += Vector2.One / ((float)gameTime.ElapsedGameTime.Milliseconds);            
-                // _mover.position += _mover.velocity;
-                Console.WriteLine($"Mover position {_mover.position}");
+                // _mover.position += _mover.velocity;                
+                Console.WriteLine($"Mover position {transform.Position}");
                 FrameCount = 0;
             }
         }
@@ -60,7 +62,8 @@ namespace Playground.Games.Oscillation
         {
             _spriteBatch.Begin();
             // _spriteBatch.DrawLine(_spring.Anchor,_mover.position,Color.Black);
-            _spriteBatch.DrawLine(_spring.Anchor + textureOffset,_mover.position + textureOffset,Color.Black);
+            var transform = _mover.transform;
+            _spriteBatch.DrawLine(_spring.Anchor + textureOffset,transform.Position + textureOffset,Color.Black);
             _spring.Draw(_spriteBatch);
             _mover.Draw(_spriteBatch);            
             _spriteBatch.End();

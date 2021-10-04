@@ -34,7 +34,8 @@ namespace VectorsMath.Games.Oscillation
         {
             float x = amplitude * MathF.Cos(_mover.angle);
             Console.WriteLine($"X:{x}");
-            _mover.position.X = amplitude + x;            
+            var transform = _mover.transform;
+            transform.Position.X = amplitude + x;            
             _mover.angle += _mover.angularVelocity;
         }
         public void Draw(GameTime gameTime)

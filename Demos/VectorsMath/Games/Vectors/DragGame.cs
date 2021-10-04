@@ -28,21 +28,21 @@ namespace VectorsMath
         }
 
         public void Update(GameTime gameTime)
-        {            
-            if(MousePressed()){
-                var dragForce = new Vector2(_mover.velocity.X,_mover.velocity.Y);
+        {       
+            var transform = _mover.transform;
+            if(MousePressed()){                
+                var dragForce = new Vector2(transform.Velocity.X,transform.Velocity.Y);
                 dragForce.Normalize();
                 var coefficient = -0.03f;
-                var speed = _mover.velocity.LengthSquared();
+                var speed = transform.Velocity.LengthSquared();
                 dragForce *= speed * coefficient;                
-                _mover.ApplyForce(dragForce);
+                transform.ApplyForce(() => dragForce);
                 
             } else {
-                _mover.ApplyForce(_gravity);                
-            }
-            
+                transform.ApplyForce(() => _gravity);                
+            }            
             _mover.Update();
-            _mover.Edges(Globals.ScreenSize.Width,Globals.ScreenSize.Height);
+            _mover.Edges(Globals.ScreenSizeToVector);
         }
         public void Draw(GameTime gameTime)
         {

@@ -54,17 +54,18 @@ namespace VectorsMath
         public void Update(GameTime gameTime)
         {
             // var ballRec = new Rectangle(_mover.position.X,_mover.position.Y,_mover.)
-            _mover.ApplyForce(_gravity);
-            if(_mover.position.Y >= _screenCenter.Y){
-                var dragForce = new Vector2(_mover.velocity.X,_mover.velocity.Y);
+            var transform = _mover.transform;
+            transform.ApplyForce(() => _gravity);            
+            if(transform.Position.Y >= _screenCenter.Y){
+                var dragForce = new Vector2(transform.Velocity.X,transform.Velocity.Y);
                 dragForce.Normalize();
                 var coefficient = -0.03f;
-                var speed = _mover.velocity.LengthSquared();
+                var speed = transform.Velocity.LengthSquared();
                 dragForce *= speed * coefficient;
-                _mover.ApplyForce(dragForce);
+                transform.ApplyForce(() => dragForce);
             }
             _mover.Update();
-            _mover.Edges(_screenSize.Width,_screenSize.Height);
+            transform.Edges(_screenSize.Width,_screenSize.Height,_mover.rectangle);
         }
         public void Draw(GameTime gameTime)
         {

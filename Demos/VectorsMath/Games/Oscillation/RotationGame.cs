@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Lib;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -12,7 +13,7 @@ namespace VectorsMath
         readonly SpriteBatch _spriteBatch;
         readonly ContentManager _content;        
         Mover mover;                
-        
+        float direction = 1f;
         public RotationGame(SpriteBatch spriteBatch,ContentManager content)
         {
             _spriteBatch = spriteBatch;
@@ -22,33 +23,32 @@ namespace VectorsMath
         public void LoadContent()
         {
             var screenVector = Globals.ScreenSizeToVector;
-            mover = new Mover(_content.Load<Texture2D>("rectangle"),new Vector2(screenVector.X * 0.5f,screenVector.Y * 0.5f),1f);                        
+            mover = new Mover(_content.Load<Texture2D>("rectangle"),new Vector2(screenVector.X * 0.5f,screenVector.Y * 0.5f),1f);
+            mover.angle = 0f;    
         }
         public void Initialize()
         {
             
-        }        
+        }
 
         public void Update(GameTime gameTime)
         {
             var mouseState = Mouse.GetState();
             var mousePos = mouseState.Position.ToVector2();
-            var moverPos = mover.position;
-            var acceleration = MathHelper.Clamp(MathF.Sin(Vector2.Distance(mouseState.Position.ToVector2(),moverPos)),0.5f,1f) / 100f;            
-            mover.angularAcceleration = acceleration;
+            //Debug.WriteLine($"Mouse position:{mousePos}");            
+            var transform = mover.transform;
+            var acceleration = MathHelper.Clamp(
+                MathF.Sin(Vector2.Distance(mousePos,transform.Position)),
+                0.0005f,
+                1f) / 1000f;                        
+            mover.angularAcceleration = acceleration;            
             mover.UpdateAngularVelocity();
-            if(mousePos.X >= Globals.ScreenSize.Width / 2){
-                mover.angularAcceleration = acceleration * -1;
-            }
-            else if (mousePos.X <= Globals.ScreenSize.Width / 2){
-                mover.angularAcceleration = acceleration * -1;
-            }                                    
-            mover.Update();
-            mover.Edges(Globals.ScreenSize.Width,Globals.ScreenSize.Height);
+            mover.angularAcceleration = acceleration;
+
         }
         public void Draw(GameTime gameTime)
         {
-            _spriteBatch.Begin();            
+            _spriteBatch.Begin();                        
             mover.Draw(_spriteBatch,mover.angle);
             _spriteBatch.End();
         }

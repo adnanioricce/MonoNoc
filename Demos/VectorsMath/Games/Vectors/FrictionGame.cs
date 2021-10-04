@@ -33,19 +33,20 @@ namespace VectorsMath
         public void Update(GameTime gameTime)
         {
             _gravity *= _mover.mass;
-            _mover.ApplyForce(_gravity);
-            _mover.ApplyForce(_wind);
+            var transform = _mover.transform;
+            transform.ApplyForce(() => _gravity);
+            transform.ApplyForce(() => _wind);
             if(Mouse.GetState().LeftButton == ButtonState.Pressed){
                 
-                var friction = new Vector2(_mover.velocity.X,_mover.velocity.Y);
+                var friction = new Vector2(transform.Velocity.X,transform.Velocity.Y);
                 friction = Vector2.Normalize(friction);
                 friction *= -1;
                 float coefficient = 0.1f;
                 friction *= coefficient;
-                _mover.ApplyForce(friction);
+                transform.ApplyForce(() => friction);
             }
             _mover.Update();            
-            _mover.Edges(Globals.ScreenSize.Width,Globals.ScreenSize.Height);
+            _mover.Edges(Globals.ScreenSizeToVector);
         }
         public void Draw(GameTime gameTime)
         {

@@ -28,20 +28,22 @@ namespace VectorsGame
         public void LoadContent()
         {
             _mover = new Mover(_content.Load<Texture2D>("rectangle"),_screenSize / 2f,0.5f);
-            _mover.velocity = new Vector2(0.001f,0.001f);
+            var transform = _mover.transform;
+            transform.Velocity = new Vector2(0.001f,0.001f);
         }
 
         public void Update(GameTime gameTime)
         {                    
             var mouse = Mouse.GetState();
             var mousePos = mouse.Position.ToVector2();
-            var direction = mousePos - _mover.position;
+            var transform = _mover.transform;
+            var direction = mousePos - transform.Position;
             direction.Normalize();
             direction *= 0.5f;
-            _mover.acceleration = direction;            
-            _mover.angle = MathF.Atan2(_mover.velocity.Y, _mover.velocity.X);
+            transform.Acceleration = direction;            
+            _mover.angle = MathF.Atan2(transform.Velocity.Y, transform.Velocity.X);
             _mover.Update();
-            _mover.velocity = Vector2.Min(_mover.velocity,_mover.topSpeed);
+            transform.Velocity = Vector2.Min(transform.Velocity,_mover.topSpeed);
             _mover.Edges(_screenSize);
         }
         public void Draw(GameTime gameTime)
