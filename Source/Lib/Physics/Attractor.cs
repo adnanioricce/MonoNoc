@@ -1,4 +1,5 @@
 using System;
+using Lib.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 namespace Lib
@@ -6,9 +7,7 @@ namespace Lib
     public class Attractor
     {
         private readonly Texture2D _texture;
-        public Vector2 position;
-        public Vector2 velocity;
-        public Vector2 acceleration;
+        public Transform2D transform;
         public Rectangle rectangle;
         public float mass = 1f;
         public float gravity = 1f;
@@ -18,19 +17,15 @@ namespace Lib
         public Attractor(Texture2D texture,Vector2 position,float mass)
         {
             _texture = texture;
-            velocity = new Vector2(0,0);
-            acceleration = new Vector2(0.1f,0f);
-            this.position = position;
+            transform.Velocity = new Vector2(0,0);
+            transform.Acceleration = new Vector2(0.1f,0f);
             this.mass = mass;
             this.rectangle = new Rectangle((int)position.X,(int)position.Y,(int)(texture.Width * mass),(int)(texture.Height * mass));
-        }        
-        
-        public void Drag(Vector2 position)
-        {
-            this.position = position;
-        }        
+        }
         public Vector2 Attract(Mover other){
-            var force = Vector2.Subtract(this.position,other.position);
+            var position = transform.Position;
+            var otherPosition = other.transform.Position;
+            var force = Vector2.Subtract(position,otherPosition);
             var radius = force.Length();
             float d =  MathHelper.Clamp(radius,0.1f,1f);
             force.Normalize();
@@ -39,19 +34,19 @@ namespace Lib
             return force * strength;
         }
         public void Update()
-        {                                     
-            velocity += acceleration;            
-            position += velocity;            
-            acceleration = Vector2.Multiply(acceleration,0f);
+        {
+            transform.Accelerate();
+            transform.Move();
+            transform.Acceleration = Vector2.Multiply(transform.Acceleration,0f);
+            var position = transform.Position;
             this.rectangle.X = (int)position.X;
             this.rectangle.Y = (int)position.Y;
             angle += angularVelocity;
             angularVelocity += angularAcceleration;
-            
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture,position,null,Color.White,0f,Vector2.Zero,mass,SpriteEffects.None,1f);
+            spriteBatch.Draw(_texture,transform.Position,null,Color.White,0f,Vector2.Zero,mass,SpriteEffects.None,1f);
         }
     }
 }

@@ -33,7 +33,7 @@ namespace VectorsMath
             _graphics.PreferredBackBufferWidth = Globals.ScreenSize.Width;
             _graphics.ApplyChanges();
             Games.Add(new LineGame(GraphicsDevice,_spriteBatch,Globals.ScreenSize));
-            Games.Add(new AccelerationGame(_spriteBatch,GraphicsDevice,Content));            
+            Games.Add(new AccelerationGame(_spriteBatch,Content));            
             Games.Add(new FrictionGame(_spriteBatch,Content));
             Games.Add(new DragGame(_spriteBatch,Content));
             Games.Add(new LiquidGame(_spriteBatch,Content,GraphicsDevice));

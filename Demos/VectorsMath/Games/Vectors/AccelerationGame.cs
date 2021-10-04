@@ -9,15 +9,13 @@ namespace VectorsMath
 {
     public class AccelerationGame : ICustomGame
     {        
-        private readonly SpriteBatch _spriteBatch;
-        private readonly GraphicsDevice _graphicsDevice;
+        private readonly SpriteBatch _spriteBatch;        
         private readonly ContentManager _content;
         private readonly Mover[] _balls = new Mover[10];
         private readonly Random rng = new Random();
-        public AccelerationGame(SpriteBatch spriteBatch,GraphicsDevice graphicsDevice,ContentManager content)
+        public AccelerationGame(SpriteBatch spriteBatch,ContentManager content)
         {
-            _spriteBatch = spriteBatch;
-            _graphicsDevice = graphicsDevice;
+            _spriteBatch = spriteBatch;            
             _content = content;
         }        
 
