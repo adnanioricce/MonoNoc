@@ -14,7 +14,7 @@ namespace Lib.Components
     {
         public Vector2 Position;
         public Vector2 Velocity;
-        public Vector2 Acceleration;
+        public Vector2 Acceleration;        
         public Transform2D() : this(Vector2.Zero,Vector2.Zero,Vector2.Zero)
         {            
 
@@ -23,7 +23,7 @@ namespace Lib.Components
         {
             Position = position;
             Velocity = velocity;
-            Acceleration = acceleration;
+            Acceleration = acceleration;            
         }
 
         /// <summary>
@@ -34,6 +34,29 @@ namespace Lib.Components
         /// Updates <see cref="Position"/> based on <see cref="Velocity"/>
         /// </summary>
         public void Move() => Position += Velocity;
-        
+        public void Edges(int width,int height,Rectangle target)
+        {            
+            if(Position.X + target.Width >= width){                
+                Velocity.X *= -1;
+                this.Position.X = width - target.Width;
+            }
+            if(Position.X < 0){                
+                Velocity.X *= -1;
+                this.Position.X = 0;
+                
+            }
+            if(Position.Y + target.Height >= height){                
+                Velocity.Y *= Velocity.Y < 0 ? 1 : -1;
+                this.Position.Y = height - target.Height;
+            }
+            if(Position.Y < 0){                
+                Velocity.Y *= Velocity.Y + target.Height > height ? -1 : 1;
+                this.Position.Y = 0;
+            }
+        }
+        public void ApplyForce(Func<Vector2> force)
+        {            
+            this.Acceleration += force();
+        }
     }    
 }

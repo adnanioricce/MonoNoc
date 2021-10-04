@@ -1,3 +1,4 @@
+using Lib.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -7,9 +8,7 @@ namespace Lib
     public class Mover
     {
         private readonly Texture2D _texture;
-        public Vector2 position;
-        public Vector2 velocity;
-        public Vector2 acceleration;
+        public Transform2D transform;        
         public Vector2 direction;
         public Rectangle rectangle;
         public float mass = 2f;
@@ -21,54 +20,29 @@ namespace Lib
         public Mover(Texture2D ballTexture,Vector2 position,float mass = 1f)
         {
             _texture = ballTexture;
-            velocity = new Vector2(0,0);
-            acceleration = new Vector2(0.0f,0f);
-            this.position = position;
+            transform = new Transform2D(position ,new Vector2(0,0),new Vector2(0.0f,0.0f));
             this.mass = mass;
             this.rectangle = new Rectangle((int)position.X,(int)position.Y,(int)(ballTexture.Width * mass),(int)(ballTexture.Height * mass));
         }
         public Mover(Texture2D ballTexture,Vector2 position,float mass,float gravity) : this(ballTexture,position,mass)
         {
             this.gravity = gravity;
-        }        
+        }
         public void Edges(Vector2 screenSize)
         {
-            Edges((int)screenSize.X,(int)screenSize.Y);
-        }
-        public void Edges(int width,int height)
-        {            
-            if(position.X + rectangle.Width >= width){                
-                velocity.X *= -1;
-                this.position.X = width - rectangle.Width;
-            }
-            if(position.X < 0){                
-                velocity.X *= -1;
-                this.position.X = 0;
-                
-            }
-            if(position.Y + rectangle.Height >= height){                
-                velocity.Y *= velocity.Y < 0 ? 1 : -1;
-                this.position.Y = height - rectangle.Height;
-            }
-            if(position.Y < 0){                
-                velocity.Y *= velocity.Y + rectangle.Height > height ? -1 : 1;
-                this.position.Y = 0;
-            }
-        }
-        public void Drag(Vector2 position)
-        {
-            this.position = position;
+            transform.Edges((int)screenSize.X,(int)screenSize.Y,rectangle);
         }
         public void ApplyForce(Vector2 force)
         {
-            acceleration += Vector2.Divide(force,mass);
+            this.transform.ApplyForce(() => Vector2.Divide(force,mass));
         }
         public void ApplyGravity()
         {
-            acceleration += Vector2.Divide(new Vector2(0f,gravity),mass);
+            this.transform.Acceleration += Vector2.Divide(new Vector2(0f,gravity),mass);
         }
         public Vector2 Attract(Mover other){
-            var force = Vector2.Subtract(this.position,other.position);
+            var position = transform.Position;
+            var force = Vector2.Subtract(position,other.transform.Position);
             var radius = force.Length();            
             force.Normalize();
             float strength = (gravity * mass * other.mass) / radius;
@@ -76,12 +50,14 @@ namespace Lib
             return force;
         }
         public void Update()
-        {                                     
-            velocity += acceleration;
-            position += velocity;
-            acceleration = Vector2.Multiply(acceleration,0f);
+        {          
+            transform.Accelerate();
+            transform.Move();
+            transform.Acceleration = Vector2.Multiply(transform.Acceleration,0f);            
+            var position = transform.Position;
             rectangle.X = (int)position.X;
             rectangle.Y = (int)position.Y;
+            var velocity = transform.Velocity;
             if(velocity.X > 0 && velocity.Y > 0){
                 velocity -= new Vector2(velocity.X * 0.01f,velocity.Y * 0.01f);
                 if(velocity.X < 0){
@@ -101,11 +77,13 @@ namespace Lib
         }
         public void Draw(SpriteBatch spriteBatch)
         {
+            var position = transform.Position;
             spriteBatch.Draw(_texture,position,null,Color.White,0f,Vector2.Zero,mass,SpriteEffects.None,1f);
         }
         public void Draw(SpriteBatch spriteBatch,float angle){
-            
+                        
             var center = new Vector2(_texture.Width / 2,_texture.Height / 2);
+            var position = transform.Position;
             spriteBatch.Draw(_texture,position,null,Color.White,angle,center,mass,SpriteEffects.None,1f);
         }
     }

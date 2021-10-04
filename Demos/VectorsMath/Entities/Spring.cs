@@ -20,7 +20,8 @@ namespace Playground.Entities
         readonly Texture2D _texture;
         public virtual void Connect(Mover mover)
         {
-            var force = - mover.position - Anchor;
+            var moverPos = mover.transform.Position;
+            var force = - moverPos - Anchor;
             // var currentLength = Vector2.DistanceSquared(BallMover.position,Anchor);
             var currentLength = MathF.Sqrt(force.Length());
             float x = RestLength - currentLength;

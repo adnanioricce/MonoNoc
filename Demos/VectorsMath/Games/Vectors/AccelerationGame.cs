@@ -46,7 +46,7 @@ namespace VectorsMath
                     _balls[i].ApplyForce(new Vector2(0.5f,0.0f));
                 }
                 _balls[i].Update();
-                _balls[i].Edges(Globals.ScreenSize.Width,Globals.ScreenSize.Height);
+                _balls[i].Edges(Globals.ScreenSizeToVector);
             }
         }
         public void Draw(GameTime gameTime)
