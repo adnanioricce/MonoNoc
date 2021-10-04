@@ -14,8 +14,7 @@ namespace Playground.Games.Oscillation
         readonly SpriteBatch _spriteBatch;
         readonly ContentManager _content;                
         Pendulum _pendulum;
-        const int millisecondsPerFrame = 64;
-        int millisecondsSinceLastUpdate = 0;
+
         public PendulumGame(SpriteBatch spriteBatch,ContentManager content)
         {
             _spriteBatch = spriteBatch;
