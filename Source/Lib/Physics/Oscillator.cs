@@ -43,7 +43,7 @@ namespace Lib.Physics
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawLine(this.centerScreen,position + texture.Bounds.Center.ToVector2(),Color.Black);
+            spriteBatch.CreateLine(this.centerScreen,position + texture.Bounds.Center.ToVector2(),Color.Black);
             spriteBatch.Draw(texture,position,Color.White);
         }
     }

@@ -60,7 +60,7 @@ namespace Playground.Games.Oscillation
         {
             _spriteBatch.Begin();
             // _spriteBatch.DrawLine(_spring.Anchor,_mover.position,Color.Black);
-            _spriteBatch.DrawLine(_spring.Anchor + textureOffset,_mover.position + textureOffset,Color.Black);
+            _spriteBatch.CreateLine(_spring.Anchor + textureOffset,_mover.position + textureOffset,Color.Black);
             _spring.Draw(_spriteBatch);
             _mover.Draw(_spriteBatch);            
             _spriteBatch.End();

@@ -35,7 +35,7 @@ namespace Playground.Entities
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawLine(Origin + textureOffset,Location + textureOffset,Color.Black);
+            spriteBatch.CreateLine(Origin + textureOffset,Location + textureOffset,Color.Black);
             spriteBatch.Draw(_texture,Origin,Color.White);                        
             spriteBatch.Draw(_texture,Location,Color.White);
         }

@@ -32,7 +32,7 @@ namespace Playground.Scenes
             _graphics.PreferredBackBufferWidth = Globals.ScreenSize.Width;
             _graphics.ApplyChanges();
             Games.Add(new HelloParticlesGame(_spriteBatch,GraphicsDevice));
-            Games.Add(new ParticlesWithForceGame(_spriteBatch,GraphicsDevice,Content));
+            Games.Add(new Games.Particles.SmokeParticlesGame(_spriteBatch, GraphicsDevice, Content));
             Games.ForEach(game => {
                 game.LoadContent();
                 game.Initialize();

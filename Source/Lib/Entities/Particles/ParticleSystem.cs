@@ -31,6 +31,7 @@ namespace Lib.Entities.Particles
         {
             Particles.Add(ParticleFactory(this));
         }
+        
         public void ApplyReppeler(RepellerObject2D reppeler)
         {
             Particles.ForEach(particle =>
@@ -54,15 +55,14 @@ namespace Lib.Entities.Particles
 
             foreach (var particle in Particles)
             {
-                particle.Update();
+                particle.Update(gameTime);
             }
             var newParticles = Particles
                                 .Where(p => p.IsDead())
                                 .Select(p => ParticleFactory(this))
                                 .ToList();
             if(newParticles.Any()){
-                Particles.RemoveAll(p => p.IsDead());
-                Particles.AddRange(newParticles);
+                Particles.RemoveAll(p => p.IsDead());                
             }
         }
         public void Draw(SpriteBatch spriteBatch,GameTime gameTime)

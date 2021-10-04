@@ -28,7 +28,7 @@ namespace Playground.Games.Particles
             transform.Position = system.Origin;
             transform.Acceleration = new Vector2(0, 0.05f);
             transform.Velocity = new Vector2(Globals.GetRandomFloat(-1.0f, 1.0f), Globals.GetRandomFloat(-2, 0));            
-            var particle = new Particle(TextureFactory.CreateSolidTexture(_graphicsDevice,Color.Black,16,16),transform,new PhysicForce2D());            
+            var particle = new Particle(TextureFactory.CreateSolidTexture(_graphicsDevice,Color.Black,16,16),transform,new PhysicForce2D(),updateAction:null);            
             return particle;
         }
         public void LoadContent()

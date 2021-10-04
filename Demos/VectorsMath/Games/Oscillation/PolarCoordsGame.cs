@@ -50,7 +50,7 @@ namespace VectorsMath
             _spriteBatch.Begin(transformMatrix:transform);
             var moverCenter = mover.rectangle.Size.ToVector2() / 2f;            
             var posOffseted = mover.position + moverCenter;
-            _spriteBatch.DrawLine(posOffseted,origin,Color.Black);
+            _spriteBatch.CreateLine(posOffseted,origin,Color.Black);
             mover.Draw(_spriteBatch);
             _spriteBatch.End();
         }

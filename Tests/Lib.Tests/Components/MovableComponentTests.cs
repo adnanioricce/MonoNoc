@@ -17,7 +17,7 @@ namespace Lib.Tests.Components
                 pos.Velocity += pos.Acceleration;
                 pos.Acceleration = Vector2.Multiply(pos.Acceleration,0f);
             };
-            var component = new MovableObject(moveCallback);
+            var component = new Movable2DObject(new Position<Vector2>(),moveCallback);
             // Act           
         }
     }
