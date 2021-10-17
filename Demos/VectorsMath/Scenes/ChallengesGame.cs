@@ -4,39 +4,37 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Myra;
 using Myra.Graphics2D.UI;
-using Playground.Games.Particles;
+using Playground.Games.Challenges;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using VectorsMath;
 
 namespace Playground.Scenes
 {
-    public class ParticlesGame : Game
+    public class ChallengesGame : Game
     {
         readonly GraphicsDeviceManager _graphics;
         SpriteBatch _spriteBatch;        
         readonly List<ICustomGame> Games = new List<ICustomGame>();
         GameSwitcher _gameSwitcher;
         Desktop _desktop;
-        public ParticlesGame()
+        public ChallengesGame()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true; 
+            IsMouseVisible = true;       
         }
-                
         protected override void Initialize()
         {
             base.Initialize();
             _graphics.PreferredBackBufferHeight = Globals.ScreenSize.Height;
             _graphics.PreferredBackBufferWidth = Globals.ScreenSize.Width;
             _graphics.ApplyChanges();
-            Games.Add(new HelloParticlesGame(_spriteBatch,GraphicsDevice));
-            Games.Add(new ParticlesWithForceGame(_spriteBatch,GraphicsDevice,Content));
-            Games.ForEach(game => {
-                game.LoadContent();
-                game.Initialize();
-            });
+            Games.Add(new FractalTreesGame(_spriteBatch,GraphicsDevice));
+            Games.ForEach(game => game.LoadContent());
             _gameSwitcher = new GameSwitcher(Games.LastOrDefault());            
             MyraEnvironment.Game = this;
             _desktop = UIHelper.BuildMenu(Games,_gameSwitcher);            

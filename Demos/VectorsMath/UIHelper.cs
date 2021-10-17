@@ -6,7 +6,7 @@ namespace VectorsMath
 {
     public static class UIHelper
     {
-        public static Desktop BuildUI(IList<ICustomGame> games,GameSwitcher gameSwitcher){            
+        public static Desktop BuildMenu(IList<ICustomGame> games,GameSwitcher gameSwitcher){            
             var grid = new Grid
             {
                 RowSpacing = 8,

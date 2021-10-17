@@ -42,7 +42,7 @@ namespace VectorsMath
             _desktop = new Desktop();
             _gameSwitcher = new GameSwitcher(Games[0]);            
             MyraEnvironment.Game = this;
-            _desktop = UIHelper.BuildUI(Games,_gameSwitcher);
+            _desktop = UIHelper.BuildMenu(Games,_gameSwitcher);
         }
 
         protected override void LoadContent()

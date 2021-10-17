@@ -6,6 +6,11 @@ namespace Lib.Extensions
 {
     public static class SpriteBatchExtensions
     {
+        public static void DrawLineAtAngle(this SpriteBatch spriteBatch,Vector2 pos1,Vector2 pos2,Color color,float angle = 1f,float scale = 1f,float thickness = 1f)
+        {
+            var distance = Vector2.Distance(pos1,pos2);
+            DrawLine(spriteBatch,pos1,distance * scale, angle, color, thickness);
+        }
         public static void DrawLine(this SpriteBatch spriteBatch,Vector2 pos1,Vector2 pos2,Color color,float scale = 1f,float thickness = 1f)
         {
             var distance = Vector2.Distance(pos1,pos2);
@@ -21,4 +26,5 @@ namespace Lib.Extensions
             spriteBatch.Draw(tex, point, null, color, angle, origin, scale, SpriteEffects.None, 0);
         }
     }
+    
 }

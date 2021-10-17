@@ -47,7 +47,7 @@ namespace VectorsGame
             Games.ForEach(game => game.LoadContent());
             _gameSwitcher = new GameSwitcher(Games.LastOrDefault());            
             MyraEnvironment.Game = this;
-            _desktop = UIHelper.BuildUI(Games,_gameSwitcher);            
+            _desktop = UIHelper.BuildMenu(Games,_gameSwitcher);            
         }
 
         protected override void LoadContent()
