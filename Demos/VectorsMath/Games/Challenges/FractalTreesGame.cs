@@ -9,15 +9,10 @@ using System.Diagnostics;
 using VectorsMath;
 using Lib.Math.Noises;
 using System.Threading.Tasks;
+using Lib.Structures;
 
 namespace Playground.Games.Challenges
 {
-    public class Node<T>
-    {
-        public T Value;
-        public Node<T> Left;
-        public Node<T> Right;        
-    }
     public class SimpleLeaf 
     {
         public Vector2 Start;
@@ -42,18 +37,17 @@ namespace Playground.Games.Challenges
         private float scale = 0.32f;
         private readonly float length = 300;        
         private readonly (int Width,int Height) Size = Globals.ScreenSize;        
-        private Node<SimpleLeaf> Tree;
-        const int millisecondsPerFrame = 64;
+        private BTree<SimpleLeaf> Tree;        
         int millisecondsSinceLastUpdate = 0;
-        bool grow = true;
-        float growTarget = 0.69f;
+        bool grow = true;       
         public FractalTreesGame(SpriteBatch spriteBatch,GraphicsDevice graphics)
         {
             _spriteBatch = spriteBatch;         
             _graphics = graphics;
-            Tree = new Node<SimpleLeaf>();
-            Tree.Left = new Node<SimpleLeaf>();
-            Tree.Right = new Node<SimpleLeaf>();
+            Tree = new BTree<SimpleLeaf>{
+                Left = new BTree<SimpleLeaf>(),
+                Right = new BTree<SimpleLeaf>()
+            };
         }
         private SimpleLeaf CreateLeaf(Vector2 previous,float leafLength,float leafAngle)
         {            
@@ -64,40 +58,28 @@ namespace Playground.Games.Challenges
             return leafLeft;
         }
 
-        private Node<SimpleLeaf> GenerateTree()
+        private BTree<SimpleLeaf> GenerateTree()
         {
             var currentLength = length;
             var pos = new Vector2((float)Size.Width / 2,(float)Size.Height);
             var angle = 3.0f * MathHelper.Pi / 2.0f;            
-            var tree = new Node<SimpleLeaf>();
-            tree.Left = new Node<SimpleLeaf>();
-            tree.Right = new Node<SimpleLeaf>();
-            tree.Value = CreateLeaf(pos,currentLength,angle);
+            var leaf = CreateLeaf(pos,currentLength,angle);
+            var tree = BTree<SimpleLeaf>.CreateNode(leaf);
             CreateTree(tree.Left,pos,currentLength,angle);
             CreateTree(tree.Right,pos,currentLength,angle);
             return tree;
         }
-        private void CreateTree(Node<SimpleLeaf> currentNode ,Vector2 previous,float leafLength,float leafAngle)
+        private void CreateTree(BTree<SimpleLeaf> currentNode ,Vector2 previous,float leafLength,float leafAngle)
         {            
-            if (leafLength >= 1.0)
-            {                                
-                var leaf = CreateLeaf(previous,leafLength,leafAngle);
-                currentNode.Value = leaf;
-                currentNode.Left = new Node<SimpleLeaf>();
-                currentNode.Right = new Node<SimpleLeaf>();
-                CreateTree(currentNode.Left,leaf.End,leafLength * scale,leafAngle + MathHelper.Pi / 5.0f);
-                CreateTree(currentNode.Right,leaf.End,leafLength * scale,leafAngle - MathHelper.Pi / 5.0f);                
-            }
-        }
-        private void TraverseTree(Node<SimpleLeaf> parent,Action<SimpleLeaf> callback)
-        {            
-            if(parent is null)
+            if (leafLength < 1.0)
                 return;
-                                 
-            callback(parent.Value);
-            TraverseTree(parent.Left,callback);
-            TraverseTree(parent.Right,callback);            
+                                  
+            var leaf = CreateLeaf(previous,leafLength,leafAngle);            
+            currentNode.AddChild(leaf);
+            CreateTree(currentNode.Left,leaf.End,leafLength * scale,leafAngle + MathHelper.Pi / 5.0f);
+            CreateTree(currentNode.Right,leaf.End,leafLength * scale,leafAngle - MathHelper.Pi / 5.0f);                            
         }
+        
         public void LoadContent()
         {                                    
             Tree = GenerateTree();           
@@ -111,31 +93,28 @@ namespace Playground.Games.Challenges
         public void Update(GameTime gameTime)
         {
             millisecondsSinceLastUpdate += (int)gameTime.ElapsedGameTime.TotalMilliseconds;            
-            if(millisecondsSinceLastUpdate >= TimeSpan.FromSeconds(1.5).TotalMilliseconds){
-                if(grow)
-                {
-                    scale += 0.0005f;
-                }
-                else {
-                    scale -= 0.0005f;
-                }
-                if(grow && scale > 0.69f)
-                {
-                    grow = !grow;
-                }
-                if(!grow && scale < 0.2f)
-                {
-                    grow = !grow;
-                }
-                Tree = GenerateTree();
+            if(millisecondsSinceLastUpdate < TimeSpan.FromSeconds(1.5).TotalMilliseconds)
+                return;
+
+            scale += grow ? 0.0005f : -0.0005f;
+
+            if(grow && scale > 0.69f)
+            {
+                grow = !grow;
             }
+            if(!grow && scale < 0.2f)
+            {
+                grow = !grow;
+            }
+            Tree = GenerateTree();
+            
         }
 
         public void Draw(GameTime gameTime)
         {            
             _graphics.Clear(Color.White * 0.21f);
             _spriteBatch.Begin();            
-            TraverseTree(Tree,(leaf) => leaf?.Draw(_spriteBatch));
+            Tree.TraverseTree((leaf) => leaf?.Draw(_spriteBatch));
             _spriteBatch.End();
         }        
     }
