@@ -14,7 +14,9 @@ namespace VectorsMath
             // using var game = new VectorsGame();
             //using var game = new OscillationGame();
             //using var game = new ParticlesGame();
-            using var game = new ChallengesGame();
+            //using var game = new ChallengesGame();
+            using var game = new PhysicsGame();
+            //using var game = new HelloPhysicsGame();
             game.Run();
         }
     }

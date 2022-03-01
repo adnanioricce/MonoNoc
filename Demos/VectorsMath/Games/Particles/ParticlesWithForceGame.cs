@@ -3,6 +3,7 @@ using Lib.Components;
 using Lib.Entities.Particles;
 using Lib.Factories;
 using Lib.Input;
+using Lib.Math;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -36,8 +37,8 @@ namespace Playground.Games.Particles
         {
             var transform = new Transform2D();
             transform.Position = origin;
-            transform.Acceleration = new Vector2(Globals.GetRandomFloat(-.05f, .05f), Globals.GetRandomFloat(-.05f, .05f));
-            transform.Velocity = new Vector2(Globals.GetRandomFloat(-1.0f, 1.0f), Globals.GetRandomFloat(-2, 2));
+            transform.Acceleration = new Vector2(RNG.GetRandomFloat(-.05f, .05f), RNG.GetRandomFloat(-.05f, .05f));
+            transform.Velocity = new Vector2(RNG.GetRandomFloat(-1.0f, 1.0f), RNG.GetRandomFloat(-2, 2));
             var physics = new PhysicForce2D();            
             physics.Force = _force();
             var particle = new Particle(textureFactory(),transform,physics);
@@ -46,8 +47,8 @@ namespace Playground.Games.Particles
         Particle ParticleFactory(ParticleSystem system) {
             var transform = new Transform2D();
             transform.Position = system.Origin;
-            transform.Acceleration = new Vector2(Globals.GetRandomFloat(-.05f, .05f), Globals.GetRandomFloat(-.05f, .05f));
-            transform.Velocity = new Vector2(Globals.GetRandomFloat(-1.0f, 1.0f), Globals.GetRandomFloat(-2, 2));
+            transform.Acceleration = new Vector2(RNG.GetRandomFloat(-.05f, .05f), RNG.GetRandomFloat(-.05f, .05f));
+            transform.Velocity = new Vector2(RNG.GetRandomFloat(-1.0f, 1.0f), RNG.GetRandomFloat(-2, 2));
             var physics = new PhysicForce2D();            
             physics.Force = _force();
             //var particle = new Particle(TextureFactory.CreateSolidTexture(_graphicsDevice, Color.WhiteSmoke, 16, 16), transform, physics);
@@ -77,7 +78,7 @@ namespace Playground.Games.Particles
             if(inputHelper.IsNewKeyPress(currentState,lastState,Keys.Space)){
                 _force = () =>
                 {
-                    return new Vector2(Globals.GetRandomFloat(-0.05f,0.05f),Globals.GetRandomFloat(-0.05f,0.05f));
+                    return new Vector2(RNG.GetRandomFloat(-0.05f,0.05f),RNG.GetRandomFloat(-0.05f,0.05f));
                 };
             }
             particleSystem.ApplyForce();

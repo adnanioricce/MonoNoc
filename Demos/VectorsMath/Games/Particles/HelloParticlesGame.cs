@@ -2,6 +2,7 @@
 using Lib.Components;
 using Lib.Entities.Particles;
 using Lib.Factories;
+using Lib.Math;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -27,14 +28,14 @@ namespace Playground.Games.Particles
             var transform = new Transform2D();
             transform.Position = system.Origin;
             transform.Acceleration = new Vector2(0, 0.05f);
-            transform.Velocity = new Vector2(Globals.GetRandomFloat(-1.0f, 1.0f), Globals.GetRandomFloat(-2, 0));            
+            transform.Velocity = new Vector2(RNG.GetRandomFloat(-1.0f, 1.0f), RNG.GetRandomFloat(-2, 0));            
             var particle = new Particle(TextureFactory.CreateSolidTexture(_graphicsDevice,Color.Black,16,16),transform,new PhysicForce2D());            
             return particle;
         }
         public void LoadContent()
         {                        
             particleSystems.AddRange(
-                Enumerable.Range(0,50).Select(i => new ParticleSystem(25,new Vector2(Globals.GetRandomInt(0,1200),Globals.GetRandomInt(0,700)),this.ParticleFactory))
+                Enumerable.Range(0,50).Select(i => new ParticleSystem(25,new Vector2(RNG.GetRandomInt(0,1200),RNG.GetRandomInt(0,700)),this.ParticleFactory))
             );
         }
         public void Initialize()

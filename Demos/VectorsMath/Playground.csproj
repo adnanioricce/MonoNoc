@@ -10,6 +10,21 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <None Update="Content\ball_transparent.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\blue_rectangle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\CircleSprite.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Font.spritefont">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\GroundSprite.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="menu.xmmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>    
@@ -29,9 +44,11 @@
     <TrimmerRootAssembly Include="Microsoft.Xna.Framework.Content.ContentTypeReader" Visible="false" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Aether.Physics2D" Version="1.6.1.1-alpha" />
+    <PackageReference Include="Genbox.VelcroPhysics.MonoGame" Version="0.1.0-alpha.2" />
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1641" />
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.0.1641" />
-    <PackageReference Include="Myra" Version="1.2.3" />
+    <PackageReference Include="Myra" Version="1.3.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Source\Lib\Lib.csproj" />

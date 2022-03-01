@@ -6,27 +6,20 @@ namespace VectorsMath
 {
     public static class Globals
     {
-        public static (int Width,int Height) ScreenSize = (0,0);
-        private static readonly Random rng = new Random();
-        private static readonly object _lock = new object();
-        public static int GetRandomInt(int min,int max)
+        private static Vector2 _screenSize;
+        private static Vector2 _centerScreen;
+        private static (int Width,int Height) screenSize;
+        public static (int Width,int Height) ScreenSize
         {
-            lock(_lock){
-                return rng.Next(min,max);
+            get => screenSize;
+            set {
+                var (width,height) = value;
+                _screenSize = new Vector2(width,height);
+                screenSize = (width,height);
+                _centerScreen = new Vector2(width / 2,height / 2);
             }
         }
-        public static float GetRandomFloat()
-        {
-            lock(_lock){
-                return (float)rng.NextDouble();
-            }
-        }
-        public static float GetRandomFloat(float min,float max){
-            lock (_lock) {
-                return rng.GetRandomNumber(min,max);
-            }
-        }
-        public static Vector2 ScreenSizeToVector => new Vector2(Globals.ScreenSize.Width,Globals.ScreenSize.Height);        
-        public static Vector2 CenterScreen => new Vector2(ScreenSize.Width / 2,ScreenSize.Height / 2);
+        public static Vector2 ScreenSizeToVector => _screenSize;        
+        public static Vector2 CenterScreen => _centerScreen;
     }
 }
