@@ -42,7 +42,7 @@ namespace VectorsGame
             Games.Add(new WaveGame(_spriteBatch,Content));
             Games.Add(new WaveWithClassGame(_spriteBatch,Content));
             Games.Add(new PendulumGame(_spriteBatch,Content));
-            Games.Add(new PseudoDoublePendulumGame(_spriteBatch,Content));
+            Games.Add(new PseudoDoublePendulumGame(_spriteBatch,Content,GraphicsDevice));
             Games.Add(new SpringGame(_spriteBatch,Content));
             Games.ForEach(game => game.LoadContent());
             _gameSwitcher = new GameSwitcher(Games.LastOrDefault());            

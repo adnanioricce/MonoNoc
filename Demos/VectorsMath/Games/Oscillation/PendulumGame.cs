@@ -12,13 +12,14 @@ namespace Playground.Games.Oscillation
     public class PendulumGame : ICustomGame
     {
         readonly SpriteBatch _spriteBatch;
-        readonly ContentManager _content;                
+        readonly ContentManager _content;
+        readonly GraphicsDevice _graphicsDevice;
         Pendulum _pendulum;
-
+        RenderTarget2D _renderTarget;
         public PendulumGame(SpriteBatch spriteBatch,ContentManager content)
         {
             _spriteBatch = spriteBatch;
-            _content = content;
+            _content = content;            
         }
         
         public void LoadContent()
@@ -26,7 +27,7 @@ namespace Playground.Games.Oscillation
             var screenSize = Globals.ScreenSizeToVector;
             _pendulum = new Pendulum(_content.Load<Texture2D>("ball"),new Vector2(screenSize.X / 2,0f),screenSize / 2f);
             _pendulum.Angle = MathF.PI / 4;
-            _pendulum.Radius = 250f;
+            _pendulum.Radius = 250f;            
         }
         public void Initialize()
         {            

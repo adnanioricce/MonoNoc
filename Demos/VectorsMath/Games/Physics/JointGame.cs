@@ -59,8 +59,7 @@ namespace Playground.Games.Physics
         public void LoadContent()
         {
             _sprite = _content.Load<Texture2D>("ball");
-            _rectangleTex = _content.Load<Texture2D>("GroundSprite");
-            _groundOrigin = new Vector2(_rectangleTex.Width / 2f, _rectangleTex.Height / 2f);                        
+            _rectangleTex = _content.Load<Texture2D>("GroundSprite");            
         }
 
         public void Update(GameTime gameTime)

@@ -41,13 +41,13 @@ namespace VectorsMath
             _screenSize.Width,
             _screenSize.Height / 2);            
             _blackHalf = new RenderTarget2D(_graphicsDevice,
-            _screenSize.Width,
-            _screenSize.Height / 2,
-            false,
-            SurfaceFormat.Color,
-            DepthFormat.Depth24,
-            0,
-            RenderTargetUsage.DiscardContents);
+                _screenSize.Width,
+                _screenSize.Height / 2,
+                false,
+                SurfaceFormat.Color,
+                DepthFormat.Depth24,
+                0,
+                RenderTargetUsage.DiscardContents);
             _pixel = new Texture2D(_graphicsDevice,1,1);
             _pixel.SetData(new Color[]{Color.White});
         }        
