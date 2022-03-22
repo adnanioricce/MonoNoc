@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Lib.Extensions
 {
+    [Obsolete("Use PrimitivesExtensions instead")]
     public static class SpriteBatchExtensions
     {
         public static void DrawLineAtAngle(this SpriteBatch spriteBatch,Vector2 pos1,Vector2 pos2,Color color,float angle = 1f,float scale = 1f,float thickness = 1f)

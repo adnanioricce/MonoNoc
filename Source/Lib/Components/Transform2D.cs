@@ -1,24 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lib.Components
 {
     /// <summary>
     /// Defines information to handle transform operations on 2D worlds
     /// </summary>
-    public record Transform2D
+    public struct Transform2D
     {
         public Vector2 Position;
         public Vector2 Velocity;
         public Vector2 Acceleration;        
-        public Transform2D() : this(Vector2.Zero,Vector2.Zero,Vector2.Zero)
-        {            
-
-        }
         public Transform2D(Vector2 position, Vector2 velocity, Vector2 acceleration)
         {
             Position = position;

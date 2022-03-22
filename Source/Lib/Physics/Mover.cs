@@ -52,18 +52,7 @@ namespace Lib
             transform.Acceleration = Vector2.Multiply(transform.Acceleration,0f); 
             var position = transform.Position;
             rectangle.X = (int)position.X;
-            rectangle.Y = (int)position.Y;            
-            //var velocity = transform.Velocity;
-            //if(velocity.X > 0 && velocity.Y > 0){
-            //    velocity -= new Vector2(velocity.X * 0.01f,velocity.Y * 0.01f);
-            //    if(velocity.X < 0){
-            //        velocity.X = 0;
-            //    }
-            //    if(velocity.Y < 0){
-            //        velocity.Y = 0;
-            //    }
-            //}
-            //transform.Velocity = velocity;
+            rectangle.Y = (int)position.Y;
         }
         public void UpdateAngularVelocity()
         {
