@@ -2,39 +2,39 @@
 
 namespace Lib.Structures
 {
-    public class BTree<T>
+    public class BinaryTree<T>
     {
-        public BTree()
-        {            
+        public BinaryTree()
+        {
         }
-        public BTree(T value)
+        public BinaryTree(T value)
         {
             Value = value;
         }
-        public BTree(T value,BTree<T> left,BTree<T> right)
+        public BinaryTree(T value,BinaryTree<T> left,BinaryTree<T> right)
         {
             Value = value;
             Left = left;
             Right = right;
         }
         public T Value = default;
-        public BTree<T> Left = default;
-        public BTree<T> Right = default;        
-        public static BTree<T> CreateNode(T value)
+        public BinaryTree<T> Left = default;
+        public BinaryTree<T> Right = default;        
+        public static BinaryTree<T> CreateNode(T value)
         {
-            return new BTree<T>
+            return new BinaryTree<T>
             {
                 Value = value,
-                Left = new BTree<T>(),
-                Right = new BTree<T>()
+                Left = new BinaryTree<T>(),
+                Right = new BinaryTree<T>()
             };
         }
         public void AddChild(T value)
         {
-            var child = BTree<T>.CreateNode(value);
+            var child = BinaryTree<T>.CreateNode(value);
             AddChild(child);
         }
-        public void AddChild(BTree<T> child)
+        public void AddChild(BinaryTree<T> child)
         {            
             Value = child.Value;
             Left = child.Left;
@@ -46,7 +46,7 @@ namespace Lib.Structures
             TraverseTree(Left,callback);
             TraverseTree(Right,callback);            
         }
-        private void TraverseTree(BTree<T> parent,Action<T> callback)
+        private void TraverseTree(BinaryTree<T> parent,Action<T> callback)
         {            
             if(parent is null)
                 return;

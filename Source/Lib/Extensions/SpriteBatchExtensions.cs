@@ -25,7 +25,7 @@ namespace Lib.Extensions
             var origin = new Vector2(0f, 0.5f);
             var scale = new Vector2(length, thickness);
             spriteBatch.Draw(tex, point, null, color, angle, origin, scale, SpriteEffects.None, 0);
-        }
+        }       
     }
     
 }

@@ -51,4 +51,45 @@ namespace Lib.Components
             this.Acceleration += force();
         }
     }    
+    public static partial class TransformExtensions
+    {
+        public static Vector2 Limit(this Vector2 vec, float max)
+        {
+            if (vec.LengthSquared() > max * max)
+            {
+                //vec.Normalize();
+                //vec *= max;
+                vec.SetMagnitude(max);
+            }
+            return vec;
+        }
+        //TODO: Check if this already exists in MonoGame library
+        public static Vector2 SetMagnitude(this Vector2 vec,float length)
+        {
+            vec.Normalize();
+            vec *= length;
+            return vec;
+        }
+        // A method that calculates a steering force towards a target
+        // STEER = DESIRED MINUS VELOCITY
+        public static Vector2 GetDirection(this Vector2 initial, Vector2 target,float max = 1f)
+        {
+            var desired = target - initial;  // A vector pointing from the position to the target
+
+            // Scale to maximum speed            
+            return desired.SetMagnitude(max);                        
+        }
+        // A method that calculates a steering force towards a target
+        // STEER = DESIRED MINUS VELOCITY
+        public static Vector2 Seek(this Vector2 desired,Vector2 velocity,float max = 1f)
+        {
+            // Steering = Desired minus velocity
+            var steer = desired - velocity;
+            return steer.Limit(max);  // Limit to maximum steering force            
+        }
+        public static float GetHeadingDirection(this Vector2 vec)
+        {
+            return MathF.Atan2(vec.Y, vec.X);
+        }
+    }
 }

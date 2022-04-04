@@ -37,16 +37,16 @@ namespace Playground.Games.Challenges
         private float scale = 0.32f;
         private readonly float length = 300;        
         private readonly (int Width,int Height) Size = Globals.ScreenSize;        
-        private BTree<SimpleLeaf> Tree;        
+        private BinaryTree<SimpleLeaf> Tree;        
         int millisecondsSinceLastUpdate = 0;
         bool grow = true;       
         public FractalTreesGame(SpriteBatch spriteBatch,GraphicsDevice graphics)
         {
             _spriteBatch = spriteBatch;         
             _graphics = graphics;
-            Tree = new BTree<SimpleLeaf>{
-                Left = new BTree<SimpleLeaf>(),
-                Right = new BTree<SimpleLeaf>()
+            Tree = new BinaryTree<SimpleLeaf>{
+                Left = new BinaryTree<SimpleLeaf>(),
+                Right = new BinaryTree<SimpleLeaf>()
             };
         }
         private SimpleLeaf CreateLeaf(Vector2 previous,float leafLength,float leafAngle)
@@ -58,18 +58,18 @@ namespace Playground.Games.Challenges
             return leafLeft;
         }
 
-        private BTree<SimpleLeaf> GenerateTree()
+        private BinaryTree<SimpleLeaf> GenerateTree()
         {
             var currentLength = length;
             var pos = new Vector2((float)Size.Width / 2,(float)Size.Height);
             var angle = 3.0f * MathHelper.Pi / 2.0f;            
             var leaf = CreateLeaf(pos,currentLength,angle);
-            var tree = BTree<SimpleLeaf>.CreateNode(leaf);
+            var tree = BinaryTree<SimpleLeaf>.CreateNode(leaf);
             CreateTree(tree.Left,pos,currentLength,angle);
             CreateTree(tree.Right,pos,currentLength,angle);
             return tree;
         }
-        private void CreateTree(BTree<SimpleLeaf> currentNode ,Vector2 previous,float leafLength,float leafAngle)
+        private void CreateTree(BinaryTree<SimpleLeaf> currentNode ,Vector2 previous,float leafLength,float leafAngle)
         {            
             if (leafLength < 1.0)
                 return;

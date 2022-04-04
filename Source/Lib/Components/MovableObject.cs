@@ -9,10 +9,11 @@ namespace Lib.Components
 {
     public class Movable2DObject
     {
-        public UpdatePosition<Vector2> UpdatePosition;
-        private Position<Vector2> Position;
-        public Movable2DObject(Position<Vector2> initialPosition,UpdatePosition<Vector2> updatePosition)
+        public Func<Vector2, Vector2> UpdatePosition;
+        private Transform2D Transform;
+        public Movable2DObject(Transform2D initialTransform,Func<Vector2,Vector2> updatePosition)
         {
+            Transform = initialTransform;
             UpdatePosition = updatePosition;
         }
     }

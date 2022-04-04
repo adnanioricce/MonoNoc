@@ -3,7 +3,7 @@ using Lib.Math;
 using Microsoft.Xna.Framework;
 
 namespace VectorsMath
-{
+{        
     public static class Globals
     {
         private static Vector2 _screenSize;
