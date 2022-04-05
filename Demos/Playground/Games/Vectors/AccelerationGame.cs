@@ -1,5 +1,6 @@
 using System;
 using Lib;
+using Lib.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;

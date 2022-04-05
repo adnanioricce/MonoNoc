@@ -39,6 +39,7 @@ namespace Playground.Scenes
             _graphics.PreferredBackBufferWidth = Globals.ScreenSize.Width;
             _graphics.ApplyChanges();
             Games.Add(new VehicleGame(_spriteBatch,Content));
+            Games.Add(new ArrivalGame(GraphicsDevice, Content, _spriteBatch));
             Games.ForEach(game => {
                 game.LoadContent();
                 game.Initialize();

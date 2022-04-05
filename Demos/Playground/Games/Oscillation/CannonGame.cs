@@ -1,5 +1,6 @@
 using System.Linq;
 using Lib;
+using Lib.Components;
 using Lib.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;

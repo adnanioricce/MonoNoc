@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Lib;
+using Lib.Components;
 using Lib.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
