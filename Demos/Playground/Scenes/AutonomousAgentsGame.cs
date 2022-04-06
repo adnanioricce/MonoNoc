@@ -41,6 +41,7 @@ namespace Playground.Scenes
             Games.Add(new VehicleGame(_spriteBatch,Content));
             Games.Add(new ArrivalGame(GraphicsDevice, Content, _spriteBatch));
             Games.Add(new VehicleStayingWithinWallsGame(GraphicsDevice, Content, _spriteBatch));
+            Games.Add(new FlowFieldGame(GraphicsDevice, Content, _spriteBatch));
             Games.ForEach(game => {
                 game.LoadContent();
                 game.Initialize();

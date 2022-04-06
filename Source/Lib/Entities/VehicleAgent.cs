@@ -60,4 +60,19 @@ namespace Lib.Entities
             return vehicle;
         }
     }
+    public static partial class VehicleAgentExtensions
+    {
+        public static VehicleAgent Follow(this VehicleAgent vehicle,FlowField flow)
+        {
+            // What is the vector at that spot in the flow field?
+            Vector2 desired = flow.Lookup(vehicle.Transform.Position);
+            // Scale it up by maxspeed
+            desired *= vehicle.MaxSpeed;
+            // Steering is desired minus velocity
+            var steer = desired - vehicle.Transform.Velocity;
+            steer = steer.Limit(vehicle.MaxForce);  // Limit to maximum steering force
+            vehicle.Transform = vehicle.Transform.ApplyForce(steer);
+            return vehicle;
+        }
+    }
 }
